@@ -184,8 +184,23 @@ onUnmounted(() => {
 
       <!-- Status message overlay (getting location, etc.) -->
       <div v-if="statusMessage && capturing"
-        class="absolute bottom-20 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full z-10">
+        class="absolute bottom-36 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full z-10">
         {{ statusMessage }}
+      </div>
+
+      <!-- Capture button overlay -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
+        <button @click="capturePhoto" :disabled="!cameraReady || capturing" aria-label="Take photo"
+          class="relative w-20 h-20 rounded-full border-4 transition-all duration-200 active:scale-95 group"
+          :class="cameraReady ? 'border-white' : 'border-white/40'">
+          <div class="absolute inset-1 rounded-full bg-white transition-all duration-200" :class="[
+            capturing ? 'animate-pulse opacity-70' : '',
+            !cameraReady ? 'opacity-30' : 'group-hover:bg-slate-200 group-active:bg-slate-300'
+          ]"></div>
+        </button>
+        <p v-if="captureHint && cameraReady && !error" class="text-white/70 text-xs animate-fade-in drop-shadow">
+          Tap to take a photo
+        </p>
       </div>
 
       <!-- Loading state -->
@@ -207,19 +222,6 @@ onUnmounted(() => {
           </button>
         </div>
       </div>
-    </div>
-
-    <!-- Capture Controls -->
-    <div class="bg-surface/80 backdrop-blur-sm px-6 py-5 flex flex-col items-center gap-2">
-      <button @click="capturePhoto" :disabled="!cameraReady || capturing" aria-label="Take photo"
-        class="relative w-20 h-20 rounded-full border-4 border-white disabled:border-slate-600 disabled:cursor-not-allowed transition-all duration-200 active:scale-95 group">
-        <div
-          class="absolute inset-1 rounded-full bg-white group-hover:bg-slate-200 group-active:bg-slate-300 group-disabled:bg-slate-700 transition-colors"
-          :class="{ 'animate-pulse': capturing }"></div>
-      </button>
-      <p v-if="captureHint && cameraReady && !error" class="text-slate-400 text-xs animate-fade-in">
-        Tap the button to take a photo
-      </p>
     </div>
   </div>
 </template>
