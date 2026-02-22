@@ -11,6 +11,7 @@ const stream = ref<MediaStream | null>(null)
 const capturing = ref(false)
 const error = ref<string | null>(null)
 const cameraReady = ref(false)
+const captureMode = ref<'photo' | 'video'>('photo')
 
 async function startCamera() {
   try {
@@ -66,6 +67,7 @@ async function capturePhoto() {
     if ('ImageCapture' in window && stream.value) {
       const track = stream.value.getVideoTracks()[0]
       if (track) {
+        captureMode.value = 'photo' // Indicate photo mode is being used
         const imageCapture = new (window as unknown as { ImageCapture: new (track: MediaStreamTrack) => { takePhoto: () => Promise<Blob> } }).ImageCapture(track)
         imageBlob = await imageCapture.takePhoto()
       } else {
@@ -73,6 +75,7 @@ async function capturePhoto() {
       }
     } else {
       // Fallback: draw video frame to canvas
+      captureMode.value = 'video' // Indicate fallback mode
       if (!videoRef.value) throw new Error('Video element not available')
       const video = videoRef.value
       const canvas = document.createElement('canvas')
@@ -135,7 +138,7 @@ onUnmounted(() => {
       <h1 class="text-white font-semibold text-lg">Photo Capture</h1>
       <div v-if="cameraReady" class="flex items-center gap-2">
         <span class="w-2 h-2 bg-success rounded-full animate-pulse"></span>
-        <span class="text-success text-xs">Live</span>
+        <span class="text-success text-xs">Live ({{ captureMode }})</span>
       </div>
     </div>
 
