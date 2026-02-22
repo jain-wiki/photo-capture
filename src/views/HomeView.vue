@@ -180,8 +180,7 @@ onUnmounted(() => {
       <div v-if="cameraReady" class="absolute inset-4 border-2 border-white/20 rounded-2xl pointer-events-none"></div>
 
       <!-- Shutter flash effect -->
-      <div v-if="showFlash"
-        class="absolute inset-0 bg-white z-20 pointer-events-none animate-shutter-flash"></div>
+      <div v-if="showFlash" class="absolute inset-0 bg-white z-20 pointer-events-none animate-shutter-flash"></div>
 
       <!-- Status message overlay (getting location, etc.) -->
       <div v-if="statusMessage && capturing"
@@ -212,8 +211,7 @@ onUnmounted(() => {
 
     <!-- Capture Controls -->
     <div class="bg-surface/80 backdrop-blur-sm px-6 py-5 flex flex-col items-center gap-2">
-      <button @click="capturePhoto" :disabled="!cameraReady || capturing"
-        aria-label="Take photo"
+      <button @click="capturePhoto" :disabled="!cameraReady || capturing" aria-label="Take photo"
         class="relative w-20 h-20 rounded-full border-4 border-white disabled:border-slate-600 disabled:cursor-not-allowed transition-all duration-200 active:scale-95 group">
         <div
           class="absolute inset-1 rounded-full bg-white group-hover:bg-slate-200 group-active:bg-slate-300 group-disabled:bg-slate-700 transition-colors"

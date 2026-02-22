@@ -91,7 +91,7 @@ async function applyWatermark(
 
 function getDownloadFilename(): string {
   const now = new Date()
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   const month = months[now.getMonth()]
   const day = now.getDate()
   const year = now.getFullYear()
@@ -173,7 +173,8 @@ function captureAnother() {
       </div>
 
       <!-- Watermarked Image -->
-      <img v-if="!processing && watermarkedImageUrl" :src="watermarkedImageUrl" alt="Your photo with location and time stamped on it"
+      <img v-if="!processing && watermarkedImageUrl" :src="watermarkedImageUrl"
+        alt="Your photo with location and time stamped on it"
         class="max-w-full max-h-[calc(100vh-200px)] rounded-xl shadow-2xl object-contain" />
     </div>
 
